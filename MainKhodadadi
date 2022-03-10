@@ -1,0 +1,61 @@
+##Check N numbers accur only once in a range
+
+def Reapeted_number(l, r, m):
+    answer = []
+    for i in range(l, r + 1):
+        strnum = str(i)
+        if strnum.count(str(m)) == 1:
+            answer.append(i)
+    return answer
+
+
+
+def While_range(l, r, text1, textfail):
+    your_input = int(input(text1))
+    while your_input not in range(l, r):
+        your_input = int(input(textfail))
+    return your_input
+
+
+# you can change Range
+l = While_range(1, 1001, "Please Enter A Number Between 1-1000", "Error! Numbers Between 1-100")
+r = While_range(1, 1001, "Please Enter Another Number Between 1-1000", "Error! Numbers Between 1-100")
+
+if l > r:
+    l, r = Replace_bigger_number(l, r)
+
+NumOfNumbers = int(input("How Many Numbers you want to check?"))
+
+Numbers = []
+
+for i in range(0, NumOfNumbers):
+    text = "Enter Number [" + str(i) + "]"
+    Numbers.append(int(input(text)))
+
+
+PreeAnswer=[]
+for i in range (0, len(Numbers)):
+    PreeAnswer.append(Reapeted_number(l, r, Numbers[i]))
+JoinedPAnswer=[]
+for i in range(0,len(PreeAnswer) ):
+    JoinedPAnswer+=PreeAnswer[i]
+
+### Here you can find total
+print(JoinedPAnswer)
+
+## if you want Numbers include just one of numbers:
+answer=[]
+ok=[]
+Answer=[]
+for i in range(0,len(PreeAnswer) ):
+    c=0
+    PAcheck = []
+    for j in range(0,len(PreeAnswer) ):
+        if not i==j:
+            Checked= [x for x in PreeAnswer[i] if not x in PreeAnswer[j]]
+            listPA_as_set = set(PreeAnswer[i])
+            PAcheck.append(listPA_as_set.intersection(Checked))
+    Answer+=set.intersection(*[set(list) for list in PAcheck])
+
+print(sorted(Answer))
+
